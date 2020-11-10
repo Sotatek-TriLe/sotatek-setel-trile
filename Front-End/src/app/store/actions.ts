@@ -1,0 +1,63 @@
+// src/app/store/actions.ts
+
+import { Action } from '@ngrx/store';
+
+export interface Product {
+  name: string;
+  price: number;
+  description: string;
+  image: string;
+  status: Status;
+}
+export enum Status {
+  Created= 1,
+  Confirmed= 2,
+  Cancelled= 3,
+  Delivered= 4,
+  Selected,
+}
+
+export enum ActionTypes {
+  Add = '[Product] Add to cart',
+  Remove = '[Product] Remove from cart',
+  LoadItems = '[Products] Load items from server',
+  LoadSuccess = '[Products] Load success',
+  UpdateStatus = '[Products] Update Status',
+  ChangeToDelivered ='Iterate among [Products] to change from Confirm To Deliverd'
+}
+
+export class AddToCart implements Action {
+  readonly type = ActionTypes.Add;
+
+
+  constructor(public payload: Product) {}
+}
+export class AddToHome implements Action {
+  readonly type = ActionTypes.Add;
+
+
+  constructor(public payload: Product) {}
+}
+
+export class GetItems implements Action {
+  readonly type = ActionTypes.LoadItems;
+}
+
+export class RemoveFromCart implements Action {
+  readonly type = ActionTypes.Remove;
+
+  constructor(public payload: Product) {}
+}
+
+export class LoadItems implements Action {
+  readonly type = ActionTypes.LoadSuccess;
+
+  constructor(public payload: Product[]) {}
+}
+export class UpdateStatus implements Action{
+  readonly type = ActionTypes.UpdateStatus;
+}
+export class ChangeToDelivered implements Action{
+  readonly type = ActionTypes.ChangeToDelivered;
+}
+export type ActionsUnion = AddToCart | RemoveFromCart | LoadItems | GetItems | UpdateStatus | AddToHome | ChangeToDelivered;
