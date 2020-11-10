@@ -24,8 +24,8 @@ export class Dialog implements OnInit, OnDestroy {
       listNameInCart.push(product.name);
     }
     const headers = {'Content-Type': 'application/json'};
-    const url = 'http://localhost:3000/payment/paycart';
-    this.http.put(url, {nameList: listNameInCart}, {headers}).subscribe(res => console.log(res));
+    const url = 'http://localhost:3001/payment/paycart';
+    return this.http.put(url, {nameList: listNameInCart}, {headers}).subscribe(res => console.log(res));
 
   }
 

@@ -2,26 +2,26 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, PromiseProvider } from 'mongoose';
 export type OrderDocument = Orders & Document;
 @Schema()
-export class Orders{
-    @Prop()
-    name: String;
+export class Orders {
+  @Prop()
+  name: string;
 
-    @Prop()
-    description: String;
+  @Prop()
+  description: string;
 
-    @Prop()
-    price: String;
+  @Prop()
+  price: string;
 
-    @Prop()
-    image: String;
+  @Prop()
+  image: string;
 
-    @Prop()
-    status: Status 
+  @Prop()
+  status: Status;
 }
 enum Status {
-    Created=1,
-    Confirmed=2,
-    Cancelled=3,
-    Delivered=4
+  Created = 1,
+  Confirmed = 2,
+  Cancelled = 3,
+  Delivered = 4,
 }
-export const OrdersSchema = SchemaFactory.createForClass(Orders)
+export const OrdersSchema = SchemaFactory.createForClass(Orders);
