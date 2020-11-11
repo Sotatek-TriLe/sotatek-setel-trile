@@ -11,7 +11,6 @@ export interface Product {
 }
 
 
-
 export const initialState = {
   items: [],
   cart: []
@@ -25,16 +24,27 @@ export function ShopReducer(state = initialState, action: ActionsUnion) {
         ...state,
         items: [...action.payload]
       };
+    case ActionTypes.EmptyCart:
+      return {
+        ...state,
+        cart: [],
+      };
 
+    case ActionTypes.ReducerAdd:
+      // @ts-ignore
+      return {
+        ...state,
+        items: [state.items.push(action.payload)]
+      };
     case ActionTypes.Add:
-      action.payload.status =5;
+      action.payload.status = 5;
       return {
         ...state,
         cart: [...state.cart, action.payload]
       };
 
     case ActionTypes.Remove:
-      action.payload.status =1;
+      action.payload.status = 1;
       return {
         ...state,
         cart: [...state.cart.filter(item => item.name !== action.payload.name)]

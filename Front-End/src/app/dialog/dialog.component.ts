@@ -3,7 +3,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {select, Store} from '@ngrx/store';
 import {Product} from '../product/product.component';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {GetItems} from '../store/actions';
+import {EmptyCart, GetItems} from '../store/actions';
 import {Router} from '@angular/router';
 
 @Component({
@@ -18,15 +18,15 @@ export class Dialog implements OnInit, OnDestroy {
 
   cart: Product[] = [];
 
-  paymentCart() {
+async  paymentCart() {
     const listNameInCart = [];
     for (const product of this.cart) {
       listNameInCart.push(product.name);
     }
     const headers = {'Content-Type': 'application/json'};
     const url = 'http://localhost:3001/payment/paycart';
-    return this.http.put(url, {nameList: listNameInCart}, {headers}).subscribe(res => console.log(res));
-
+    await this.http.put(url, {nameList: listNameInCart}, {headers}).subscribe(res => console.log(res));
+    this.store.dispatch(new EmptyCart());
   }
 
   ngOnInit(): void {

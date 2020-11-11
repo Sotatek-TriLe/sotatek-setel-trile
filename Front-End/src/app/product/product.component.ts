@@ -26,7 +26,7 @@ export class ProductComponent implements OnInit, OnChanges {
 
 
   addToCart(item: Product) {
-    if ( item.status === 3 || item.status === 4){
+    if ( item.status === 3 || item.status === 4 || item.status === 2 ){
       alert('this item is alread process, try again with other order');
       return;
     }
@@ -35,6 +35,10 @@ export class ProductComponent implements OnInit, OnChanges {
   }
 
   removeFromCart(item: Product) {
+    if ( item.status === 3 || item.status === 4 || item.status === 2 ){
+      alert('this item is alread process, try again with other order');
+      return;
+    }
     this.store.dispatch(new RemoveFromCart(item));
     this.inCart = false;
   }

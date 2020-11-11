@@ -23,9 +23,20 @@ export enum ActionTypes {
   LoadItems = '[Products] Load items from server',
   LoadSuccess = '[Products] Load success',
   UpdateStatus = '[Products] Update Status',
-  ChangeToDelivered ='Iterate among [Products] to change from Confirm To Deliverd'
+  ChangeToDelivered ='Iterate among [Products] to change from Confirm To Deliverd',
+  EmptyCart = 'Empty Cart',
+  ReducerAdd = 'ReducerAdd'
+}
+export class ReducerAdd implements Action {
+  readonly type = ActionTypes.ReducerAdd;
+
+
+  constructor(public payload: Product) {}
 }
 
+export class EmptyCart implements Action {
+  readonly type = ActionTypes.EmptyCart;
+}
 export class AddToCart implements Action {
   readonly type = ActionTypes.Add;
 
@@ -60,4 +71,4 @@ export class UpdateStatus implements Action{
 export class ChangeToDelivered implements Action{
   readonly type = ActionTypes.ChangeToDelivered;
 }
-export type ActionsUnion = AddToCart | RemoveFromCart | LoadItems | GetItems | UpdateStatus | AddToHome | ChangeToDelivered;
+export type ActionsUnion = EmptyCart | AddToCart | RemoveFromCart | LoadItems | GetItems | UpdateStatus | AddToHome | ChangeToDelivered | ReducerAdd;
