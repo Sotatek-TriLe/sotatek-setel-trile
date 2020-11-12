@@ -33,8 +33,8 @@ export class OrderController {
 
     @Put('update')
     async updateStatus(@Body() updateStt:UpdateStt) {
-        await this.orderService.updateStatus(updateStt);
-        return this.orderService.findOne(updateStt.name);
+        return this.orderService.updateStatus(updateStt);
+
     }
 
     @Delete('delete/:orderName')
