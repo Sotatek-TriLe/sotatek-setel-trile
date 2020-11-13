@@ -5,6 +5,7 @@ import {initOrder, OrderFruits} from "./database.initDB";
 @Controller('database')
 export class DatabaseController {
     constructor(private databaseService: DatabaseService) {
+        this.databaseService.drop();
         this.initDB(initOrder)
     }
     initDB(initOrder:OrderFruits[]){

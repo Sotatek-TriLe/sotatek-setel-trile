@@ -8,7 +8,6 @@ import {initOrder,OrderFruits} from '../database/database.initDB'
 @Injectable()
 export class DatabaseService {
     constructor(@InjectModel(Orders.name) private orderModel: Model<OrderDocument>) {
-        this.drop();
     }
 
     async create(createOrdersDto: CreateOrdersDto): Promise<Orders> {
