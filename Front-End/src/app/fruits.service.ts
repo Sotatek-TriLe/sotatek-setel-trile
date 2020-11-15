@@ -30,8 +30,4 @@ return this.http.get('http://localhost:3000/order');
     const body = { name: updateStt.name, status: updateStt.status};
     return this.http.put(url, body, {headers});
   }
-
-  getStatusConfirmed(){
-
-  }
 }

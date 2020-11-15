@@ -24,7 +24,7 @@ async  paymentCart() {
       listNameInCart.push(product.name);
     }
     const headers = {'Content-Type': 'application/json'};
-    const url = 'http://localhost:3001/payment/paycart';
+    const url = 'http://localhost:3000/payment/paycart';
     await this.http.put(url, {nameList: listNameInCart}, {headers}).subscribe(res => console.log(res));
     this.store.dispatch(new EmptyCart());
   }
