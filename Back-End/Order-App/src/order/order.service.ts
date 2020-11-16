@@ -27,9 +27,11 @@ export class OrderService {
             "name": name,
         }).exec();
     }
-    async updateStatus(updateStt: UpdateStt): Promise<Orders[]> {
-        await this.orderModel.updateOne({ "name": updateStt.name }, { $set: { "status": updateStt.status } }).exec();
-        return this.orderModel.find().exec();
+    async updateStatus(updateStt: UpdateStt): Promise<any> {
+        this.orderModel.
+        updateOne({ "name": updateStt.name }, { $set: { "status": updateStt.status } })
+          .exec().then(() => true).catch((err) => console.log(err))
+
     }
     async deleteOrder(name: string): Promise<Orders[]> {
         try {

@@ -20,19 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23b90139-c564-460b-8636-48700514bdc0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sotatek-setel-trile.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Back-End/Order-App/src/database/database.controller.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Back-End/Order-App/src/database/database.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Back-End/Order-App/src/database/database.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Back-End/Order-App/src/database/database.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Back-End/Order-App/src/database/database.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Back-End/Order-App/src/order/order.controller.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Back-End/Order-App/src/payment/payment.controller.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Back-End/Order-App/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Back-End/Order-App/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Back-End/Payment-App/src/payment/payment.controller.spec.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Back-End/Order-App/src/order/order.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Back-End/Order-App/src/order/order.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Back-End/Order-App/src/order/order.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Back-End/Order-App/src/order/order.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front-End/src/app/home/home.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front-End/src/app/home/home.component.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,10 +42,14 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Back-End/Order-App" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/Back-End/Payment-App/node_modules/typescript/lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -66,6 +61,7 @@
       <option name="presentableId" value="Default" />
       <updated>1605265750807</updated>
       <workItem from="1605265751861" duration="859000" />
+      <workItem from="1605497732438" duration="7174000" />
     </task>
     <servers />
   </component>
@@ -82,8 +78,15 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2610" y="241" width="530" height="605" key="FileChooserDialogImpl" timestamp="1605499803767">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2610" y="241" width="530" height="605" key="FileChooserDialogImpl/72.27.1848.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1605499803767" />
   </component>
 </project>
