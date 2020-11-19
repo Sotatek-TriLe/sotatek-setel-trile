@@ -42,7 +42,7 @@ export class OrderComponent implements OnInit {
     }
     await this.http.post(url, {productList}, {headers}).subscribe(res => console.log(res));
     this.store.dispatch(new EmptyCart());
-    this.fruitService.inCart = false;
+    this.fruitService.inCart.next(false);
   }
 
   ngOnInit(): void {

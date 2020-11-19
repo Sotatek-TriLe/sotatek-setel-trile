@@ -19,7 +19,7 @@ export interface Product {
 })
 export class ProductComponent implements OnInit, OnChanges {
   constructor(private store: Store<{ items: []; cart: [] }>, private fruitService: FruitsService) {
-    this.inCart = fruitService.inCart;
+    fruitService.inCart.subscribe((val) => this.inCart = val);
   }
   inCart: boolean;
   @Input() product: Product;
