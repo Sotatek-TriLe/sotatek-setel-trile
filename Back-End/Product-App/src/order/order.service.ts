@@ -12,35 +12,11 @@ export type UpdateStt ={
 export class OrderService {
     constructor(@InjectModel(Orders.name) private orderModel: Model<OrderDocument>) { }
 
-    async create(createOrdersDto: CreateOrdersDto): Promise<Orders> {
-        const createdOrders = new this.orderModel(createOrdersDto);
-        return createdOrders.save();
-    }
-    
 
     async findAll(): Promise<Orders[]> {
         return this.orderModel.find().exec();
     }
 
-    async findOne(name: string): Promise<Orders> {
-        return this.orderModel.findOne({
-            "name": name,
-        }).exec();
-    }
-    async updateStatus(updateStt: UpdateStt): Promise<any> {
-        this.orderModel.
-        updateOne({ "name": updateStt.name }, { $set: { "status": updateStt.status } })
-          .exec().then(() => true).catch((err) => console.log(err))
-
-    }
-    async deleteOrder(name: string): Promise<Orders[]> {
-        try {
-            await this.orderModel.deleteOne({ name }).exec();
-        } catch (error) {
-            console.log(error)
-        }
-        return this.orderModel.find().exec();
-    }
 
 
 }

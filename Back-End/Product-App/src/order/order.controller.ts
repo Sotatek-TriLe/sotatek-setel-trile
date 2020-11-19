@@ -19,34 +19,6 @@ export class OrderController {
         return allOrder;
     }
 
-    @Get(':orderName')
-    async getOneOrder(@Param('orderName') orderName) {
-        const order = await this.orderService.findOne(orderName);
-        return order;
-    }
-
-    @Post('create')
-    async createNewOrder(@Body() newOrder: CreateOrdersDto) {
-        await this.orderService.create(newOrder);
-        return this.orderService.findAll();
-    }
-
-    @Put('update')
-    async updateStatus(@Body() updateStt:UpdateStt) {
-       return this.orderService.updateStatus(updateStt);
-    }
-
-    @Delete('delete/:orderName')
-    async deleteOrder(@Param('orderName') orderName) {
-        try {
-
-            await this.orderService.deleteOrder(orderName);
-            return this.orderService.findAll();
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
 
 
 }
