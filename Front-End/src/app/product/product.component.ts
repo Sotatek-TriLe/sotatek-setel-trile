@@ -3,6 +3,7 @@
 import {Component, Input, OnChanges, OnInit, Type} from '@angular/core';
 import { Store } from '@ngrx/store';
 import {AddToCart, RemoveFromCart, UpdateStatus} from '../store/actions';
+import {FruitsService} from '../fruits.service';
 
 export interface Product {
   name: string;
@@ -17,9 +18,10 @@ export interface Product {
   styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit, OnChanges {
-  constructor(private store: Store<{ items: []; cart: [] }>) {}
-
-  inCart = false;
+  constructor(private store: Store<{ items: []; cart: [] }>, private fruitService: FruitsService) {
+    this.inCart = fruitService.inCart;
+  }
+  inCart: boolean;
   @Input() product: Product;
 
 

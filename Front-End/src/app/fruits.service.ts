@@ -9,7 +9,7 @@ import { environment } from '../environments/environment';
 })
 export class FruitsService {
   constructor(private http: HttpClient) {}
-
+  inCart = false;
   getAll(){
     return this.http.get(`${environment.productUrl}/products`);
   }
