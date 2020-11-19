@@ -12,16 +12,16 @@ import {MatDialogModule} from '@angular/material/dialog'
 import { ShopReducer } from './store/reducer';
 import { ProductComponent } from './product/product.component';
 import { ProductListComponent } from './product-list/product-list.component';
-import { PaymentComponent } from './payment/payment.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AddProductComponent } from './add-product/add-product.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {ReactiveFormsModule} from '@angular/forms';
-import { CancelProductComponent } from './cancel-product/cancel-product.component';
-import {MatDialog} from '@angular/material/dialog';
 import { Dialog } from './dialog/dialog.component';
+import {MatTableModule} from '@angular/material/table';
+import { OrderComponent } from './order/order.component';
+import {MatButtonModule} from '@angular/material/button';
+import { OrderListComponent } from './order-list/order-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,10 +29,9 @@ import { Dialog } from './dialog/dialog.component';
     HeaderComponent,
     ProductComponent,
     ProductListComponent,
-    PaymentComponent,
-    AddProductComponent,
-    CancelProductComponent,
     Dialog,
+    OrderComponent,
+    OrderListComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +44,8 @@ import { Dialog } from './dialog/dialog.component';
     MatInputModule,
     ReactiveFormsModule,
     MatDialogModule,
+    MatTableModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

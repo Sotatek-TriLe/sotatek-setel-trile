@@ -1,17 +1,10 @@
 <!-- /src/app/home/home.component.html -->
 <main>
-  <div class="buttonBounding">
-    <a routerLink="/addorder" routerLinkActive="active">
-
-      <span class="addnew" style="margin-right: 15px">Add New</span>
-
-    </a>
-    <a routerLink="/cancelorder" routerLinkActive="active">
-
-      <span class="addnew">Cancel</span></a>
-  </div>
-    <section class="product-area">
+  <button routerLinkActive="active" routerLink="/manage-order" mat-raised-button color="accent">Manage Order</button>
+      <section class="product-area">
     <app-product-list [fruits]="items"></app-product-list>
-      <app-payment></app-payment>
+  </section>
+  <section>
+    <app-order *ngIf="displayOrder"></app-order>
   </section>
 </main>

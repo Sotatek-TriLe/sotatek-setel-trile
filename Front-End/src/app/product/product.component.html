@@ -5,7 +5,7 @@
   </div>
   <div class="product-details">
     <p  class="product-details__name">{{ product.name }}</p>
-    <p class="product-details__name">{{ convertStatus(product.status.toString()) }}</p>
+    <p class="product-details__name" *ngIf="inCart">Added To Cart</p>
     <p class="product-details__price">${{product.price}}</p>
   </div>
   <div class="product-description">

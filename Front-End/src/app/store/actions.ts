@@ -7,14 +7,6 @@ export interface Product {
   price: number;
   description: string;
   image: string;
-  status: Status;
-}
-export enum Status {
-  Created= 1,
-  Confirmed= 2,
-  Cancelled= 3,
-  Delivered= 4,
-  Selected,
 }
 
 export enum ActionTypes {
@@ -23,7 +15,7 @@ export enum ActionTypes {
   LoadItems = '[Products] Load items from server',
   LoadSuccess = '[Products] Load success',
   UpdateStatus = '[Products] Update Status',
-  ChangeToDelivered ='Iterate among [Products] to change from Confirm To Deliverd',
+  ChangeToDelivered = 'Iterate among [Products] to change from Confirm To Deliverd',
   EmptyCart = 'Empty Cart',
   ReducerAdd = 'ReducerAdd'
 }
