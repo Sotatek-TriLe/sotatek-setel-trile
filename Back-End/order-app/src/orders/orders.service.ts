@@ -4,94 +4,92 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Db, ObjectID } from 'mongodb';
-import { Order } from '../orders/interfaces/order.interface';
+import { ObjectID } from 'mongodb';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import { Order } from './schemas/order.schema';
 import { CreateOrderDto } from './dtos/createOrder.dto';
-import { UpdateOrderDto } from './dtos/updateOrder.dto';
 import { OrderStateMachine } from './order.machine';
-import { Status } from './status';
+import { Status } from './interfaces/order.interface';
+import { PaymentService } from '../payment/payment.service';
 
 @Injectable()
 export class OrdersService {
   constructor(
-    @Inject('DATABASE_CONNECTION') private db: Db,
-    private orderStateMachine: OrderStateMachine,
-  ) {
-    // this.db
-    //   .collection('ordersList')
-    //   .drop()
-    //   .catch((err) => console.log(`this is error: ${err} , continue `));
-  }
+    private readonly paymentService: PaymentService,
+    @InjectModel(Order.name) private orderModel: Model<Order>
+  ) { }
 
   async find(): Promise<Order[]> {
-    return await this.db.collection('ordersList').find().toArray();
+    return this.orderModel.find().sort({ _id: -1 }).exec();
   }
 
-  async findOne(id: number): Promise<Order> {
-    const response = await this.db.collection('ordersList').findOne({
-      id: Number(id),
-    });
-
-    if (!response) {
-      throw new NotFoundException();
-    }
-
-    return response;
-  }
-
-  async create(body: CreateOrderDto): Promise<void> {
+  async findOne(id: string): Promise<Order> {
     try {
-      const body2 = this.orderStateMachine.newOrderSave(body as Order);
-      body2.id = (await this.db.collection('ordersList').find().count()) + 1;
-      await this.db.collection('ordersList').insert(body2);
-      console.log('successfully insert');
-    } catch (err) {
-      console.log(err);
-    }
-  }
-
-  async update(id: number, body: UpdateOrderDto): Promise<void> {
-    if (!ObjectID.isValid(String(id))) {
-      throw new BadRequestException();
-    }
-
-    await this.db.collection('ordersList').updateOne(
-      {
-        _id: new ObjectID(id),
-      },
-      {
-        $set: {
-          ...body,
-        },
-      },
-    );
-  }
-
-  async delete(id: string): Promise<void> {
-    if (!ObjectID.isValid(id)) {
-      throw new BadRequestException();
-    }
-
-    const response = await this.db.collection('ordersList').deleteOne({
-      _id: new ObjectID(id),
-    });
-
-    if (response.deletedCount === 0) {
-      throw new NotFoundException();
-    }
-  }
-
-  async requestCancel(id: number) {
-    this.findOne(id).then(async (order) => {
-      if (this.orderStateMachine.canCancel(order)) {
-        await this.db
-          .collection('ordersList')
-          .updateOne(
-            { id: Number(id) },
-            { $set: { status: Status.Cancelled } },
-          );
+      const response = this.orderModel.findById(id).exec();
+      if (!response) {
+        throw new NotFoundException();
       }
-      throw new Error(`Cannot cancel order id ${id}`);
-    });
+      return response;
+    } catch (error) {
+      throw new BadRequestException;
+    }
+  }
+
+  async create(input: CreateOrderDto): Promise<Order> {
+    try {
+      const order = new this.orderModel(input);
+      const orderMachine = new OrderStateMachine(order);
+      await orderMachine.commit();
+
+      this.processOrder(orderMachine.data._id);
+
+      return orderMachine.data;
+    } catch (error) {
+      throw new BadRequestException;
+    }
+  }
+
+  async processOrder(id: string) {
+    await this.processPayment(id);
+    setTimeout(() => {
+      this.deliverOrder(id)
+    }, 5000);
+  }
+
+  async processPayment(id: string): Promise<OrderStateMachine> {
+    const order = await this.orderModel.findById(id).exec();
+    const orderMachine = new OrderStateMachine(order);
+
+    const paymentResult = await this.paymentService.processPayment(orderMachine.data);
+    const transition = paymentResult ? 'confirm' : 'cancel';
+
+    orderMachine.transition(transition);
+
+    await orderMachine.commit();
+    return orderMachine;
+  }
+
+  async deliverOrder(id: string): Promise<OrderStateMachine> {
+    const order = await this.orderModel.findById(id).exec();
+    const orderMachine = new OrderStateMachine(order);
+
+    orderMachine.transition('deliver');
+
+    await orderMachine.commit();
+    return orderMachine;
+  }
+
+  async cancel(id: string): Promise<Order> {
+    const order = await this.orderModel.findById(id).exec();
+    const orderMachine = new OrderStateMachine(order);
+
+    if (orderMachine.can('cancel')) {
+      orderMachine.transition('cancel');
+      await orderMachine.commit();
+      return orderMachine.data;
+    }
+
+    throw new BadRequestException(`Cannot cancel order id ${id}`);
   }
 }

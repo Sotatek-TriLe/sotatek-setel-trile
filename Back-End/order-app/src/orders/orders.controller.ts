@@ -8,9 +8,8 @@ import {
   Put,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
-import { Order } from './interfaces/order.interface';
+import { Order } from './schemas/order.schema';
 import { CreateOrderDto } from './dtos/createOrder.dto';
-import { UpdateOrderDto } from './dtos/updateOrder.dto';
 
 @Controller('orders')
 export class OrdersController {
@@ -18,26 +17,21 @@ export class OrdersController {
 
   @Get()
   async find(): Promise<Order[]> {
-    return await this.orderService.find();
+    return this.orderService.find();
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<Order> {
-    return await this.orderService.findOne(Number(id));
+    return this.orderService.findOne(id);
   }
 
   @Post()
-  async create(@Body() body: CreateOrderDto): Promise<void> {
-    await this.orderService.create(body);
+  async create(@Body() body: CreateOrderDto): Promise<Order> {
+    return this.orderService.create(body);
   }
 
-  @Put(':id/request-cancel')
-  async requestCancel(@Param('id') id: number) {
-    await this.orderService.requestCancel(id);
-  }
-
-  @Delete(':id')
-  async delete(@Param('id') id: string): Promise<void> {
-    await this.orderService.delete(id);
+  @Post(':id/cancel')
+  async cancel(@Param('id') id: string): Promise<Order> {
+    return this.orderService.cancel(id);
   }
 }

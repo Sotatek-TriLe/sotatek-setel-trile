@@ -1,19 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { OrderService } from './order.service';
+import { ProductService } from './product.service';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Orders, OrderDocument } from '../schemas/orders.schema';
-import { CreateOrdersDto, Status } from './create-orders.dto';
 
-describe('OrderService', () => {
-  let service: OrderService;
+describe('ProductService', () => {
+  let service: ProductService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [OrderService],
+      providers: [ProductService],
     }).compile();
 
-    service = module.get<OrderService>(OrderService);
+    service = module.get<ProductService>(ProductService);
   });
 
   it('should be defined', () => {

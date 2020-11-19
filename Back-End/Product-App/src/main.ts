@@ -15,7 +15,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api', app, document);
  dotenv.config()
-  await app.listen(3000).then(()=>console.log('Order App is runing at PORT 3000'));
+  await app.listen(3000).then(()=>console.log('Product App is runing at PORT 3000'));
 
 }
 bootstrap();

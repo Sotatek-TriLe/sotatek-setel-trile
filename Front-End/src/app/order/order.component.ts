@@ -1,9 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Product} from '../product/product.component';
 import {select, Store} from '@ngrx/store';
 import {EmptyCart} from '../store/actions';
 
 type ProductNew = Product & { position: number };
+
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-order',
@@ -13,7 +16,7 @@ type ProductNew = Product & { position: number };
 
 export class OrderComponent implements OnInit {
 
-  constructor(private store: Store<{ items: []; cart: [] }>) {
+  constructor(private http: HttpClient, private store: Store<{ items: []; cart: [] }>) {
     store.pipe(select('shop')).subscribe(data => (this.cart = data.cart));
   }
 
@@ -28,9 +31,10 @@ export class OrderComponent implements OnInit {
   //     this.cartNew.push(productNew);
   //   }
   // }
-  createOrder(): void {
-    // sendCreateRequest();
-    // empty cart
+  async createOrder() {
+    const headers = {'Content-Type': 'application/json'};
+    const url = `${environment.orderUrl}/orders`;
+    await this.http.post(url, {productList: this.cart}, {headers}).subscribe(res => console.log(res));
     this.store.dispatch(new EmptyCart());
   }
 

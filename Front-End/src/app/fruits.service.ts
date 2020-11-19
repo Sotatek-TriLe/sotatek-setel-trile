@@ -2,10 +2,7 @@
 
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-export interface UpdateStt{
-  'name': string;
-}
-
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +11,6 @@ export class FruitsService {
   constructor(private http: HttpClient) {}
 
   getAll(){
-return this.http.get('http://localhost:3000/order');
+    return this.http.get(`${environment.productUrl}/products`);
   }
-
-  // tslint:disable-next-line:typedef
-  // setStt(updateStt: UpdateStt) {
-  //   const url = 'http://localhost:3000/order/update';
-  //   const headers = {'Content-Type': 'application/json'};
-  //   const body = { name: updateStt.name, status: updateStt.status};
-  //   return this.http.put(url, body, {headers});
-  // }
 }
