@@ -1,4 +1,4 @@
-1. Install mongo service. (At this step, remember your PORT number)
+1. Install mongo service. (Config your mongo to listen at port 27017)
 2. CD into backend, install and run Product-App, Order-App, Payment-App respectively.
 3. CD into frontend, install and run front end.
 Use case:
