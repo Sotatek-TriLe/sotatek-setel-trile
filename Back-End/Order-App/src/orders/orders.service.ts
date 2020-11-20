@@ -57,17 +57,18 @@ export class OrdersService {
     }, 5000);
   }
 
-  async processPayment(id: string): Promise<OrderStateMachine> {
+  async processPayment(id: string): Promise<{result: boolean, newStatus: number}>{
     const order = await this.orderModel.findById(id).exec();
+    if (order.status == 2 || order.status == 3 || order.status == 4) return {result:false, newStatus: null};
     const orderMachine = new OrderStateMachine(order);
 
     const paymentResult = await this.paymentService.processPayment(orderMachine.data);
     const transition = paymentResult ? 'confirm' : 'cancel';
-
-    orderMachine.transition(transition);
-
-    await orderMachine.commit();
-    return orderMachine;
+    const transitionResult = orderMachine.transition(transition);
+    if (transitionResult.result){
+      await orderMachine.commit();
+      return {result: true, newStatus: transitionResult.newStatus}
+    } else return {result: false, newStatus: null}
   }
 
   async deliverOrder(id: string): Promise<OrderStateMachine> {
@@ -80,16 +81,16 @@ export class OrdersService {
     return orderMachine;
   }
 
-  async cancel(id: string): Promise<Order> {
+  async cancel(id: string): Promise<boolean> {
     const order = await this.orderModel.findById(id).exec();
     const orderMachine = new OrderStateMachine(order);
 
     if (orderMachine.can('cancel')) {
       orderMachine.transition('cancel');
       await orderMachine.commit();
-      return orderMachine.data;
+      return true;
     }
 
-    throw new BadRequestException(`Cannot cancel order id ${id}`);
+    return false;
   }
 }

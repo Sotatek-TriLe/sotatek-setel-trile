@@ -38,13 +38,15 @@ export class OrderStateMachine {
     return this.data.save();
   }
 
-  public transition(transitionName): OrderStateMachine {
+  public transition(transitionName): { result: boolean, newStatus: number } {
     const nextState = OrderStateMachine.configs.transitions[this.state][transitionName];
-    if (!nextState)
-      throw new Error(`Invalid transition: ${Status[this.state]} -> ${transitionName}`);
+    if (!nextState){
+      console.log(`Invalid transition: ${Status[this.state]} -> ${transitionName}`);
+      return { result:false, newStatus:null };
+    }
     this.previousState = this.state;
     this.state = nextState;
     this.data.status = this.state;
-    return this;
+    return {result: true, newStatus: this.data.status};
   }
 }

@@ -20,9 +20,8 @@ export class OrdersController {
   async find(): Promise<Order[]> {
     return this.orderService.find();
   }
-  @Get(':id')
-  async processPayment(@Param('id') id:string): Promise<OrderStateMachine> {
-    console.log('vao controller')
+  @Post(':id')
+  async processPayment(@Param('id') id:string): Promise<{result: boolean, newStatus: number}> {
     return this.orderService.processPayment(id);
   }
 
@@ -33,7 +32,7 @@ export class OrdersController {
   }
 
   @Post(':id/cancel')
-  async cancel(@Param('id') id: string): Promise<Order> {
+  async cancel(@Param('id') id: string): Promise<boolean> {
     return this.orderService.cancel(id);
   }
 }
